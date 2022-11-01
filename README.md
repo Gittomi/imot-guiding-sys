@@ -57,7 +57,7 @@ After login HomeLocationScreen is opened and user has two options: "Call air str
 <td><img src="https://user-images.githubusercontent.com/91623447/199251744-121d3d90-f455-4ecf-a90f-74a5e466fcbd.jpg"width=270 height=480></td>
   </tr>
    <tr>
-    <td>Login</td>
+    <td>LoginScreen</td>
      <td>HomeLocationScreen</td>
      <td>MarkMap</td>
      <td>MarkMap</td>
