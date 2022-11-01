@@ -43,6 +43,8 @@ To get this app to work locally follow these simple example steps.
    ```
 4. Use _Expo Go_ via android device to use imot-guiding-system app.
 
+5. Register to firebase (free for demo-usage) and create backend.
+
 
 ## Usage
 
