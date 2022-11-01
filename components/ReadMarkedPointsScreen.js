@@ -1,14 +1,15 @@
 import { View, Text, StyleSheet, ScrollView, Pressable, Alert, ToastAndroid, NativeEventEmitter } from 'react-native'
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useLayoutEffect, useState} from 'react'
 import { query, orderBy, onSnapshot, firestore, collection, COORDINATES, deleteDoc, doc } from '../firebase/Config';
 import Constants from 'expo-constants';
 import { convertFirebaseTimeStampToJS } from '../helpers/Functions';
-import { EvilIcons } from '@expo/vector-icons'; 
+import { EvilIcons, MaterialIcons } from '@expo/vector-icons'; 
+import {getAuth} from '../firebase/Config';
 
 
-export default function ReadMarkedPointsScreen() {
+export default function ReadMarkedPointsScreen({navigation}) {
     const [spots, setSpots] = useState([]);
-    const [isActive, setIsActive] = useState(false);
+    const [myStyle, setMyStyle] = useState(false);
     
     useEffect(() => {
         const q = query(collection(firestore,COORDINATES), orderBy('created', 'desc'))
@@ -31,6 +32,23 @@ export default function ReadMarkedPointsScreen() {
         return () => {
           unsubscribe()
         }
+      }, [])
+      
+      useLayoutEffect(() => {
+        navigation.setOptions({
+           headerRight: () => (
+                <MaterialIcons
+                name="logout"
+                size={24}
+                color="white"
+                onPress={() => getAuth()
+                               .signOut()
+                                .then(() => navigation.push('HomeLocation',{setLogin: false}),
+                                        ToastAndroid.show('User logged out.', ToastAndroid.SHORT)
+                                )}
+                />
+            ),
+        })
       }, [])
       
       const deleteDocument = async(itemId) => {
@@ -57,8 +75,10 @@ export default function ReadMarkedPointsScreen() {
         );
       }
       const handleClick = (itemId) => {
-        if(itemId === NativeEventEmitter.name)
-        setIsActive(current => !current);
+        setMyStyle(prevState => ({
+          ...myStyle,
+          [itemId]: !prevState[itemId]
+        }));
       }
       return (
         <View style={styles.spotContainer}>
@@ -73,11 +93,11 @@ export default function ReadMarkedPointsScreen() {
                 <Text>alt:{spot.altitude.toFixed(8)}</Text>
                 
                 </View>
-                 <Pressable style={[styles.buttonDeleteContainer, isActive ? styles.isActiveButton : styles.buttonDeleteContainer]} 
+                 <Pressable style={[styles.buttonDeleteContainer, myStyle[`${spot.id}`] ? styles.isActiveButton : styles.buttonDeleteContainer]} 
                  
-                 onPressIn={handleClick(spot.id)}
+                 onPressIn={() => handleClick(spot.id)}
                  onPress={ () => showAlert(spot.id)}
-                 onPressOut={handleClick(spot.id)}
+                 onPressOut={() => handleClick(spot.id)}
                  >
                     <EvilIcons name="trash" size={48} color="grey" />
                   </Pressable>
@@ -131,7 +151,7 @@ const styles = StyleSheet.create({
     },
    isActiveButton: {
       alignItems: 'center',
-      backgroundColor: '#737373',
+      backgroundColor: '#a6a6a6',
       borderRadius: 40,
       justifyContent: 'center',
       borderColor: 'black',

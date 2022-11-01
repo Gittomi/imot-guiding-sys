@@ -3,7 +3,8 @@ import { getFirestore, collection, query, addDoc, deleteDoc, doc, serverTimestam
 import {getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 const firebaseConfig = {
-    //api key here
+  //api key here
+
   };
 
   initializeApp(firebaseConfig);
@@ -25,5 +26,7 @@ const firebaseConfig = {
     signInWithEmailAndPassword,
     deleteDoc,
     doc,
+    
+   
     
   }

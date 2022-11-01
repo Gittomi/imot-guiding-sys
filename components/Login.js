@@ -1,13 +1,18 @@
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native'
-import React, {useState} from 'react'
+import React, {useState, useLayoutEffect} from 'react'
 import Constants from 'expo-constants'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { StatusBar } from 'expo-status-bar';
 
-export default function Login({setLogin}) {
-    const [userName, setUserName] = useState('commander@foo.com');
-    const [password, setPassword] = useState('foobar1');
+export default function Login({setLogin, navigation}) {
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
     const [user, setUser] = useState('');
+    
+
+    useLayoutEffect(()=>{
+        navigation.setOptions({headerShown: false});
+    },[navigation])
 
     const login = () => {
         const auth = getAuth()
@@ -16,6 +21,7 @@ export default function Login({setLogin}) {
             console.log(userCredential.user)
             setLogin(true)
             setUser(userCredential.user.email)
+            navigation.setOptions({headerShown: true})
         }).catch ((error) => {
             if (error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
                 alert("Invalid credentials!")
@@ -36,16 +42,20 @@ export default function Login({setLogin}) {
       <Text style={styles.label}>Username</Text>
       <TextInput style={styles.input}
       placeholder='Type email here'
+      placeholderTextColor='#cfcfcf'
       value={userName}
       onChangeText={text => setUserName(text)}
       />
       <Text style={styles.label}>Password</Text>
       <TextInput style={styles.input}
       placeholder='Type password here'
+      placeholderTextColor='#cfcfcf'
       value={password}
       onChangeText={text => setPassword(text)}
       />
+      <View style={styles.buttonContainer}>
       <Button title='login' onPress={login}/>
+      </View>
       </View>
     </View>
   )
@@ -55,31 +65,46 @@ export default function Login({setLogin}) {
       paddingTop: Constants.statusBarHeight,
       flex: 1,
       backgroundColor: '#212121', 
-      justifyContent: 'center' 
+      justifyContent: 'center'
+       
     },
     containerItem: {
         marginLeft: 30,
         marginRight: 30,
+        
     },
     heading: {
-        fontSize: 24,
+        fontSize: 48,
         fontWeight:'bold',
         padding: 10,
         color: '#ffffff',
-        
+        textAlign: 'center'
     },
     label:{
-        padding: 10,
         fontWeight:'bold',
         color: '#f5f5f5',
-        
+        fontSize: 18,  
     },
     input: {
-        
+        padding: 10,
         color: '#cfcfcf',
-        borderBottomColor: '#cfcfcf',
-        borderBottomWidth: 1,
+        borderColor: '#cfcfcf',
+        borderWidth: 1.5,
+        borderRadius: 20,
         marginBottom: 20,
-        
-    }
+        marginTop: 10,
+        height:40,
+          
+    },
+    buttonContainer: {
+        marginTop: 10,
+        marginLeft: 50,
+        marginRight: 50,
+        borderWidth: 2,
+        borderRadius: 20,
+        borderColor: "#24a0ed",
+        backgroundColor: "#24a0ed",
+        overflow: "hidden",
+        marginBottom: 40,
+      },
 })
