@@ -49,12 +49,19 @@ To get this app to work locally follow these simple example steps.
 After login HomeLocationScreen is opened and user has two options: "Call air strike" or "Read coordinates". In MarkMapScreen authenticated users can call imaginary "air strikes" by long pressing map. Marker is set to pressed location and these coordinates are sent to firebase. User can delete markers also from map and coordinates are deleted from firebase also. In ReadMarkedPointsScreen data is retrieved from firebase and user can scroll all coordinates and if necessary delete them. There are screenshots below from screens.
 
 <table>
-  <tr>
-    <td></td>
-     <td></td>
+   <tr>
+   <td><img src="https://user-images.githubusercontent.com/91623447/199251294-c19e14b6-60b1-405a-a09f-65792b7b23b8.jpg"width=270 height=480></td>
+     <td><img src="https://user-images.githubusercontent.com/91623447/199251472-04077beb-4058-465b-9143-6cdcb12ca252.jpg"width=270 height=480></td>
+    <td><img src="https://user-images.githubusercontent.com/91623447/199251561-bc285eb9-7a2a-4ba9-b39a-03aa67f07bec.jpg"width=270 height=480></td>
+       <td><img src="https://user-images.githubusercontent.com/91623447/199251636-baddc497-b596-4eee-9be0-38ea4fc85829.jpg"width=270 height=480></td>
+<td><img src="https://user-images.githubusercontent.com/91623447/199251744-121d3d90-f455-4ecf-a90f-74a5e466fcbd.jpg"width=270 height=480></td>
   </tr>
-  <tr>
-    
+   <tr>
+    <td>Login</td>
+     <td>HomeLocationScreen</td>
+     <td>MarkMap</td>
+     <td>MarkMap</td>
+     <td>ReadMarkedPoints</td>
   </tr>
  </table>
 
