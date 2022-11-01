@@ -7,7 +7,7 @@ import { StatusBar } from 'expo-status-bar';
 export default function Login({setLogin, navigation}) {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
-    const [user, setUser] = useState('');
+    
     
 
     useLayoutEffect(()=>{
@@ -20,7 +20,6 @@ export default function Login({setLogin, navigation}) {
         .then((userCredential) => {
             console.log(userCredential.user)
             setLogin(true)
-            setUser(userCredential.user.email)
             navigation.setOptions({headerShown: true})
         }).catch ((error) => {
             if (error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {

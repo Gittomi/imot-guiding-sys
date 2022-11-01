@@ -18,6 +18,7 @@ export default function App() {
   NavigationBar.setBackgroundColorAsync("#474747");
   NavigationBar.setButtonStyleAsync("light");
 
+  
   LogBox.ignoreLogs(['AsyncStorage has been extracted from react-native core and will be removed in a future release.']);
   LogBox.ignoreLogs([
     'Non-serializable values were found in the navigation state',
